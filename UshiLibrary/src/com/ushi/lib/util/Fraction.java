@@ -69,10 +69,20 @@ public class Fraction<N extends Number> {
 		return mMolecule;
 	}
 
+	/**
+	 * 分子をfloatで返す。
+	 *
+	 * @return float型の分子
+	 */
 	public float getMoleculeToFloat() {
 		return mMolecule.floatValue();
 	}
 
+	/**
+	 * 分子をintで返す。
+	 *
+	 * @return int型の分子
+	 */
 	public float getMoleculeToInt() {
 		return mMolecule.intValue();
 	}
@@ -86,16 +96,26 @@ public class Fraction<N extends Number> {
 		return mDenominator;
 	}
 
+	/**
+	 * 分母をfloatで返す。
+	 *
+	 * @return float型の分母
+	 */
 	public float getDenominatorToFloat() {
 		return mDenominator.floatValue();
 	}
 
+	/**
+	 * 分母をintで返す。
+	 *
+	 * @return int型の分子
+	 */
 	public int getDenominatorToInt() {
 		return mDenominator.intValue();
 	}
 
 	@Override
 	public String toString() {
-		return String.valueOf(getFractionValue());
+		return getMolecule() + "/" + getDenominator() + " : " + getFractionValue();
 	}
 }
