@@ -23,6 +23,15 @@ public class Util {
 	}
 
 	/**
+	 * Android標準のActionBarが利用できるかを返します。
+	 *
+	 * @return ActionBarが使えるバージョンならtrue
+	 */
+	public static boolean enabledNativeActionBar() {
+		return isMoreThanHoneycomb();
+	}
+
+	/**
 	 * メソッドを呼び出したスレッドがUIスレッドであるかを判定します。
 	 *
 	 * @return UIスレッドの場合true、それ以外ならfalse
@@ -33,6 +42,8 @@ public class Util {
 
 	/**
 	 * このメソッドがUIスレッドで呼び出された場合、ランタイム例外を投げます。
+	 *
+	 * @throws IllegalStateException UIスレッドで呼び出された場合にスロー
 	 */
 	public static void throwCallOnUIThread() {
 		if (isUIThread()) {
@@ -43,7 +54,7 @@ public class Util {
 	/**
 	 * 引数のパーミッションが記述されていなければ例外を投げます。
 	 *
-	 * @param permissions
+	 * @param permissions パーミッション。(可変長引数)
 	 */
 	public static void enforceCallingOrSelfPermissions(Context context, String... permissions) {
 		if (permissions == null) {
@@ -56,7 +67,6 @@ public class Util {
 				"this application should have" + permission + "permission. ");
 			}
 		}
-
 	}
 
 }
