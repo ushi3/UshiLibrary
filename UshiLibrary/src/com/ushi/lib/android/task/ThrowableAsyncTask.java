@@ -40,7 +40,6 @@ public abstract class ThrowableAsyncTask<PROGRESS, RESULT_CODE, RESULT_DATA>
 			onPreProcess();
 
 		} catch (Exception e) {
-			// コールバック処理内で例外が発生して落ちると、アプリの動きとしてダサいので例外をスルーする
 			Log.e(e);
 		}
 	}
@@ -51,7 +50,6 @@ public abstract class ThrowableAsyncTask<PROGRESS, RESULT_CODE, RESULT_DATA>
 			onPostProcess(result);
 
 		} catch (Exception e) {
-			// コールバック処理内で例外が発生して落ちると、アプリの動きとしてダサいので例外をスルーする
 			Log.e(e);
 		}
 	}
