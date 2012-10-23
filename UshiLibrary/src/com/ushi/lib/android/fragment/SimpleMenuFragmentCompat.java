@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 /**
@@ -42,12 +41,12 @@ public class SimpleMenuFragmentCompat extends ListFragment implements SimpleMenu
 
 	@Override
 	public void setMenuItems(CharSequence... menuItems) {
-		mHelper.setMenuItems((BaseAdapter) getListAdapter(), menuItems);
+		mHelper.setMenuItems(getListAdapter(), menuItems);
 	}
 
 	@Override
 	public void addMenuItems(CharSequence... menuItems) {
-		mHelper.addMenuItems((BaseAdapter) getListAdapter(), menuItems);
+		mHelper.addMenuItems(getListAdapter(), menuItems);
 	}
 
 	@Override
@@ -62,6 +61,16 @@ public class SimpleMenuFragmentCompat extends ListFragment implements SimpleMenu
 
 	@Override
 	public void onListItemClick(ListView listView, View view, int position, long id) {
-		mHelper.onMenuSelected((BaseAdapter) getListAdapter(), position);
+		mHelper.onMenuSelected(getListAdapter(), position);
+	}
+
+	@Override
+	public int getFragmentId() {
+		return getId();
+	}
+
+	@Override
+	public String getFragmentTag() {
+		return getTag();
 	}
 }

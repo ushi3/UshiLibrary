@@ -5,17 +5,49 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+/**
+ * 標準APIとCompatの処理を共通化するための汎用クラス。
+ *
+ * @author Ushi
+ */
 public class SimpleMenuHelper extends BaseFragmentHelper {
 
+	/**
+	 * {@link SimpleMenuFragment} 及び {@link SimpleMenuFragmentCompat} のリスナーです。
+	 * <p>
+	 *
+	 * リスナーは {@link Fragment#onAttach()}のタイミングで、{@link Activity} と
+	 * {@link SimpleMenuListener} のinstanceofがtrueの場合に自動的に設定されます。<br>
+	 * 1つのActivityで複数の {@link SimpleMenuFragment} を利用する場合は、引数
+	 * {@link BaseSimpleMenu} の {@link BaseSimpleMenu#getFragmentId()} や
+	 * {@link BaseSimpleMenu#getFragmentTag()} を用いて、<br>
+	 * 任意のメニューであることを確認することができます。
+	 * <p>
+	 *
+	 * @author Ushi
+	 */
 	public static interface SimpleMenuListener {
+
+		/**
+		 * メニューが選択されたことの通知です。
+		 *
+		 * @param caller
+		 *            通知を呼び出した {@link BaseSimpleMenu} 実装インスタンス
+		 * @param position
+		 *            選択されたメニューのindex
+		 * @param name
+		 *            選択されたメニューの名前
+		 */
 		public void onSelected(BaseSimpleMenu caller, int position, String name);
 	}
 
@@ -44,12 +76,12 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 		return new MenuAdapter(context);
 	}
 
-	public void setMenuItems(BaseAdapter adapter, CharSequence... menuItems) {
+	public void setMenuItems(ListAdapter adapter, CharSequence... menuItems) {
 		mMenuItems.clear();
 		addMenuItems(adapter, menuItems);
 	}
 
-	public void addMenuItems(BaseAdapter adapter, CharSequence... menuItems) {
+	public void addMenuItems(ListAdapter adapter, CharSequence... menuItems) {
 		if (menuItems != null) {
 			mMenuItems.addAll(Arrays.asList(menuItems));
 		}
@@ -65,23 +97,24 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 		mSelectedColor.color = color;
 	}
 
-	public void updateAdapter(BaseAdapter adapter) {
-		if (adapter == null) {
+	public void updateAdapter(ListAdapter adapter) {
+		if (adapter == null || adapter instanceof BaseAdapter == false) {
 			return;
 		}
 
 		if (mMenuItems == null || mMenuItems.size() == 0) {
-			adapter.notifyDataSetInvalidated();
+			((BaseAdapter) adapter).notifyDataSetInvalidated();
 
 		} else {
-			adapter.notifyDataSetChanged();
+			((BaseAdapter) adapter).notifyDataSetChanged();
 		}
 	}
 
-	public void onMenuSelected(BaseAdapter adapter, int position) {
+	public void onMenuSelected(ListAdapter adapter, int position) {
 		if (mListener != null) {
 			Object item = adapter.getItem(position);
-			mListener.onSelected(mChild, position, item != null ? item.toString() : null);
+			mListener.onSelected(mChild, position,
+					item != null ? item.toString() : null);
 		}
 		setChildSelected(adapter, position);
 	}
@@ -92,13 +125,9 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 	 * @param position
 	 *            色を付けたいポジション
 	 */
-	public void setChildSelected(BaseAdapter adapter, int position) {
+	public void setChildSelected(ListAdapter adapter, int position) {
 		mLastSelectedPosition = position;
-		try {
-			adapter.notifyDataSetChanged();
-		} catch (Exception e) {
-			// こんなとこでエラってもらっても困る
-		}
+		updateAdapter(adapter);
 	}
 
 	private class MenuAdapter extends ArrayAdapter<CharSequence> {
@@ -107,10 +136,12 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 			super(context, android.R.layout.simple_list_item_1, mMenuItems);
 		}
 
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = super.getView(position, convertView, parent);
 
-			int color = position == mLastSelectedPosition ? mSelectedColor.color : Color.TRANSPARENT;
+			int color = position == mLastSelectedPosition ? mSelectedColor.color
+					: Color.TRANSPARENT;
 			color = mSelectedColor.isEnabled ? color : Color.TRANSPARENT;
 
 			view.setBackgroundColor(color);
@@ -132,17 +163,62 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 	}
 
 	/**
+	 * Fragmentを作成する場合に実装するインターフェース。
 	 *
 	 * @author Ushi
 	 */
 	public static interface BaseSimpleMenu {
+		/**
+		 * メニューの設定。 (上書き)<br>
+		 * {@link SimpleMenuHelper#setMenuItems(ListAdapter, CharSequence...)}
+		 * を呼び出してください。
+		 *
+		 * @param menuItems
+		 *            メニュー名
+		 */
 		public void setMenuItems(CharSequence... menuItems);
 
+		/**
+		 * メニューの追加。<br>
+		 * {@link SimpleMenuHelper#addMenuItems(ListAdapter, CharSequence...)}
+		 * を呼び出してください。
+		 *
+		 * @param menuItems
+		 *            追加するメニュー名
+		 */
 		public void addMenuItems(CharSequence... menuItems);
 
+		/**
+		 * 選択中のメニューの色を変更する設定の有効・無効。<br>
+		 * {@link SimpleMenuHelper#setSelectedColorEnabled(boolean)} を呼び出してください。
+		 *
+		 * @param enabled
+		 *            有効にする場合true, 無効の場合false。デフォルトはfalse
+		 */
 		public void setSelectedColorEnabled(boolean enabled);
 
+		/**
+		 * 選択中のメニューの色の設定。<br> {@link SimpleMenuHelper#setSelectedColor(int)}
+		 * を呼び出してください。
+		 *
+		 * @param color
+		 *            カラーコード。
+		 */
 		public void setSelectedColor(int color);
+
+		/**
+		 * このインターフェースを実装したFragmentインスタンスのIDを返します。<br>
+		 *
+		 * @return FragmentのID
+		 */
+		public int getFragmentId();
+
+		/**
+		 * このインターフェースを実装したFragmentインスタンスに割り当てたタグ名を返します。<br>
+		 *
+		 * @return Fragmentに割り当てたタグ名
+		 */
+		public String getFragmentTag();
 	}
 
 }

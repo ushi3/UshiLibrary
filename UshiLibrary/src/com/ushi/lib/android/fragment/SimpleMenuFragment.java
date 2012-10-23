@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper.BaseSimpleMenu {
@@ -36,11 +35,11 @@ public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper
 	}
 
 	public void setMenuItems(CharSequence... menuItems) {
-		mHelper.setMenuItems((BaseAdapter) getListAdapter(), menuItems);
+		mHelper.setMenuItems(getListAdapter(), menuItems);
 	}
 
 	public void addMenuItems(CharSequence... menuItems) {
-		mHelper.addMenuItems((BaseAdapter) getListAdapter(), menuItems);
+		mHelper.addMenuItems(getListAdapter(), menuItems);
 	}
 
 	public void setSelectedColorEnabled(boolean enabled) {
@@ -54,6 +53,16 @@ public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper
 	@Override
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
-		mHelper.onMenuSelected((BaseAdapter) getListAdapter(), position);
+		mHelper.onMenuSelected(getListAdapter(), position);
+	}
+
+	@Override
+	public int getFragmentId() {
+		return getId();
+	}
+
+	@Override
+	public String getFragmentTag() {
+		return getTag();
 	}
 }
