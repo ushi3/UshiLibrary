@@ -1,7 +1,7 @@
 package com.ushi.lib.util;
 
 /**
- * doubleのぶん数
+ * doubleの分数を表すクラス。
  *
  * @author Ushi
  */
