@@ -167,7 +167,7 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 	 *
 	 * @author Ushi
 	 */
-	public static interface BaseSimpleMenu {
+	public static interface BaseSimpleMenu extends IFragmentHelper {
 		/**
 		 * メニューの設定。 (上書き)<br>
 		 * {@link SimpleMenuHelper#setMenuItems(ListAdapter, CharSequence...)}
@@ -206,19 +206,6 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 		 */
 		public void setSelectedColor(int color);
 
-		/**
-		 * このインターフェースを実装したFragmentインスタンスのIDを返します。<br>
-		 *
-		 * @return FragmentのID
-		 */
-		public int getFragmentId();
-
-		/**
-		 * このインターフェースを実装したFragmentインスタンスに割り当てたタグ名を返します。<br>
-		 *
-		 * @return Fragmentに割り当てたタグ名
-		 */
-		public String getFragmentTag();
 	}
 
 }
