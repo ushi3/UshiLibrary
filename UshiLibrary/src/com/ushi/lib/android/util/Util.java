@@ -14,12 +14,22 @@ public class Util {
 	}
 
 	/**
+	 * 端末のAndroidのバージョンが、引数のAPI Level以上であるかを判定します。
+	 *
+	 * @param apiLevel APIレベル
+	 * @return 引数のAPILevel以上であればtrue、それ未満であればfalse
+	 */
+	public static boolean isMoreThanLevel(int apiLevel) {
+		return Build.VERSION.SDK_INT >= apiLevel;
+	}
+
+	/**
 	 * バージョンがHoneycomb以上であればtrueを返す。
 	 *
 	 * @return 11以上ならtrue
 	 */
 	public static boolean isMoreThanHoneycomb() {
-		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+		return isMoreThanLevel(Build.VERSION_CODES.HONEYCOMB);
 	}
 
 	/**
@@ -47,7 +57,7 @@ public class Util {
 	 */
 	public static void throwCallOnUIThread() {
 		if (isUIThread()) {
-			throw new IllegalStateException("this method should not be called UI thread.");
+			throw new IllegalStateException("this method should not be called UI Thread.");
 		}
 	}
 
@@ -64,7 +74,7 @@ public class Util {
 		for (String permission : permissions) {
 			if (permission != null) {
 				context.enforceCallingOrSelfPermission(permission,
-				"this application should have" + permission + "permission. ");
+				"this application should have " + permission + " permission. ");
 			}
 		}
 	}

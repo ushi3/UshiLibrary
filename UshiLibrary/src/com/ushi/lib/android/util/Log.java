@@ -32,7 +32,7 @@ public class Log {
 	}
 
 	/**
-	 * {@link android.util.Log#w(String, String, Throwable)} のラッパ.
+	 * {@link android.util.Log#w(String, String, Throwable)} のラッパ。
 	 *
 	 * @param th
 	 *            発生した例外
@@ -42,7 +42,18 @@ public class Log {
 	}
 
 	/**
-	 * {@link android.util.Log#w(String, String)} のラッパ.
+	 * {@link android.util.Log#w(String, String, Throwable)} のラッパ。
+	 *
+	 * @param msg 出力するメッセージ
+	 * @param th
+	 *            発生した例外
+	 */
+	public static void w(String msg, Throwable th) {
+		android.util.Log.w(Util.getClassName(1), msg, th);
+	}
+
+	/**
+	 * {@link android.util.Log#w(String, String)} のラッパ。
 	 *
 	 * @param msg
 	 *            出力するメッセージ
@@ -52,7 +63,7 @@ public class Log {
 	}
 
 	/**
-	 * {@link android.util.Log#d(String, String)} のラッパ.
+	 * {@link android.util.Log#d(String, String)} のラッパ。
 	 *
 	 * @param msg
 	 *            出力するメッセージ
@@ -62,12 +73,23 @@ public class Log {
 	}
 
 	/**
-	 * {@link android.util.Log#e(String, String, Throwable)} のラッパ.
+	 * {@link android.util.Log#e(String, String, Throwable)} のラッパ。
 	 *
 	 * @param th
 	 *            発生した例外
 	 */
 	public static void e(Throwable th) {
-		android.util.Log.e(Util.getClassName(1), "Exception raised.", th);
+		android.util.Log.e(Util.getClassName(1), "Exception occured.", th);
+	}
+
+	/**
+	 * {@link android.util.Log#e(String, String, Throwable)} のラッパ。
+	 *
+	 * @param msg 出力するメッセージ
+	 * @param th
+	 *            発生した例外
+	 */
+	public static void e(String msg, Throwable th) {
+		android.util.Log.e(Util.getClassName(1), msg, th);
 	}
 }
