@@ -1,7 +1,5 @@
 package com.ushi.lib.android.util;
 
-import com.ushi.lib.util.Util;
-
 public class Log {
 
 	/**
@@ -11,14 +9,14 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void d(String msg) {
-		android.util.Log.d(Util.getClassName(1), msg);
+		android.util.Log.d(StackUtil.getClassName(1), msg);
 	}
 
 	/**
 	 * {@link android.util.Log#d(String, String)} のラッパ. 現在のソースコード上の位置を出力する.
 	 */
 	public static void d() {
-		android.util.Log.d(Util.getClassName(1), Util.getMethodName(1));
+		android.util.Log.d(StackUtil.getClassName(1), StackUtil.getMethodName(1));
 	}
 
 	/**
@@ -28,7 +26,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void wtf(String msg) {
-		android.util.Log.wtf(Util.getClassName(1), msg);
+		android.util.Log.wtf(StackUtil.getClassName(1), msg);
 	}
 
 	/**
@@ -38,7 +36,7 @@ public class Log {
 	 *            発生した例外
 	 */
 	public static void w(Throwable th) {
-		android.util.Log.w(Util.getClassName(1), "Exception raised.", th);
+		android.util.Log.w(StackUtil.getClassName(1), "Exception raised.", th);
 	}
 
 	/**
@@ -49,7 +47,7 @@ public class Log {
 	 *            発生した例外
 	 */
 	public static void w(String msg, Throwable th) {
-		android.util.Log.w(Util.getClassName(1), msg, th);
+		android.util.Log.w(StackUtil.getClassName(1), msg, th);
 	}
 
 	/**
@@ -59,7 +57,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void w(String msg) {
-		android.util.Log.w(Util.getClassName(1), msg);
+		android.util.Log.w(StackUtil.getClassName(1), msg);
 	}
 
 	/**
@@ -69,7 +67,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void e(String msg) {
-		android.util.Log.e(Util.getClassName(1), msg);
+		android.util.Log.e(StackUtil.getClassName(1), msg);
 	}
 
 	/**
@@ -79,7 +77,7 @@ public class Log {
 	 *            発生した例外
 	 */
 	public static void e(Throwable th) {
-		android.util.Log.e(Util.getClassName(1), "Exception occured.", th);
+		android.util.Log.e(StackUtil.getClassName(1), "Exception occured.", th);
 	}
 
 	/**
@@ -90,6 +88,6 @@ public class Log {
 	 *            発生した例外
 	 */
 	public static void e(String msg, Throwable th) {
-		android.util.Log.e(Util.getClassName(1), msg, th);
+		android.util.Log.e(StackUtil.getClassName(1), msg, th);
 	}
 }

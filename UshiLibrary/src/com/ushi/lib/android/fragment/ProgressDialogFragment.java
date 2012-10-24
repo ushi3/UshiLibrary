@@ -84,7 +84,7 @@ public class ProgressDialogFragment extends DialogFragment {
 
 		return dialog;
 	}
-	
+
 	@Override
 	public void dismiss() {
 		if (getFragmentManager() != null) {

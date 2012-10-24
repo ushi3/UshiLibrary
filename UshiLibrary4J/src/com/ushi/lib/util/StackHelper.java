@@ -1,15 +1,28 @@
 package com.ushi.lib.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Util {
+public class StackHelper {
 
-	private static final List<String> EXCLUDE_CLASSES = Arrays.asList(
-			"dalvik.system.VMStack", "java.lang.Thread",
-			Util.class.getCanonicalName());
+	private final List<String> exList;
 
-	private Util() {
+	private static final String CLASS_NAME = StackHelper.class.getCanonicalName();
+
+	public StackHelper(Class<?> user, String... ignores) {
+		if (user == null) {
+			throw new IllegalArgumentException("user must be not null.");
+		}
+		int size = ignores != null ? ignores.length : 0;
+		exList = new ArrayList<String>(size + 2);
+
+		exList.add(CLASS_NAME);
+		exList.add(user.getCanonicalName());
+
+		if (ignores != null) {
+			exList.addAll(Arrays.asList(ignores));
+		}
 	}
 
 	/**
@@ -18,7 +31,7 @@ public class Util {
 	 *
 	 * @return クラス名
 	 */
-	public static String getClassName() {
+	public String getClassName() {
 		return getClassName(0);
 	}
 
@@ -29,7 +42,7 @@ public class Util {
 	 *            無視するスタックの深さ
 	 * @return クラス名
 	 */
-	public static String getClassName(int ignoreDepth) {
+	public String getClassName(int ignoreDepth) {
 		StackTraceElement stack = pickupStack(ignoreDepth);
 		if (stack != null) {
 			return toClassName(stack);
@@ -43,7 +56,7 @@ public class Util {
 	 *
 	 * @return メソッド名
 	 */
-	public static String getMethodName() {
+	public String getMethodName() {
 		return getMethodName(0);
 	}
 
@@ -54,7 +67,7 @@ public class Util {
 	 *            無視するスタックの深さ
 	 * @return クラス名
 	 */
-	public static String getMethodName(int ignoreDepth) {
+	public String getMethodName(int ignoreDepth) {
 		StackTraceElement stack = pickupStack(ignoreDepth);
 		if (stack != null) {
 			return toString(stack);
@@ -63,14 +76,14 @@ public class Util {
 		}
 	}
 
-	static StackTraceElement pickupStack(int ignoreDepth) {
+	protected StackTraceElement pickupStack(int ignoreDepth) {
 		StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
 
 		boolean find = false;
 		for (int i = 0; i < stacks.length; i++) {
 			StackTraceElement stack = stacks[i];
 			String stackClass = stack.getClassName();
-			if (find == false && !EXCLUDE_CLASSES.contains(stackClass)) {
+			if (find == false && exList.contains(stackClass) == false) {
 				find = true;
 			}
 			if (find && ignoreDepth == 0) {
@@ -83,14 +96,14 @@ public class Util {
 		return null;
 	}
 
-	static String toClassName(StackTraceElement stack) {
+	public static String toClassName(StackTraceElement stack) {
 		StringBuilder stb = new StringBuilder();
 		stb.append(stack.getFileName().replace(".java", ""));
 
 		return stb.toString();
 	}
 
-	static String toString(StackTraceElement stack) {
+	public static String toString(StackTraceElement stack) {
 		StringBuilder stb = new StringBuilder();
 		stb.append(stack.getFileName().replace(".java", ""));
 		stb.append("#");
