@@ -53,7 +53,7 @@ public class Fraction<N extends Number> {
 	/**
 	 * このインスタンスの表す値の余事象となる値をfloatで返します。
 	 *
-	 * @return 1 - 分子/分母
+	 * @return (分母 - 分子)/分母
 	 */
 	public float getComplementaryValue() {
 		float denom = getDenominatorToFloat();
@@ -83,7 +83,7 @@ public class Fraction<N extends Number> {
 	 *
 	 * @return int型の分子
 	 */
-	public float getMoleculeToInt() {
+	public int getMoleculeToInt() {
 		return mMolecule.intValue();
 	}
 
