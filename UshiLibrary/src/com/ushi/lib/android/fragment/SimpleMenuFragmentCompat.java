@@ -12,7 +12,7 @@ import android.widget.ListView;
  *
  * @author Ushi
  */
-public class SimpleMenuFragmentCompat extends ListFragment implements SimpleMenuHelper.BaseSimpleMenu {
+public class SimpleMenuFragmentCompat extends ListFragment implements SimpleMenuHelper.ISimpleMenu {
 
 	private SimpleMenuHelper mHelper = new SimpleMenuHelper(this);
 
@@ -72,5 +72,15 @@ public class SimpleMenuFragmentCompat extends ListFragment implements SimpleMenu
 	@Override
 	public String getFragmentTag() {
 		return getTag();
+	}
+
+	@Override
+	public View getParentView() {
+		return getView();
+	}
+
+	@Override
+	public ViewHelper getViewHelper() {
+		return mHelper.getViewHelper();
 	}
 }

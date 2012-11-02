@@ -35,7 +35,7 @@ public class Util {
 	/**
 	 * Android標準のActionBarが利用できるかを返します。
 	 *
-	 * @return ActionBarが使えるバージョンならtrue
+	 * @return ActionBarが使えるバージョン(11以上)ならtrue
 	 */
 	public static boolean enabledNativeActionBar() {
 		return isMoreThanHoneycomb();

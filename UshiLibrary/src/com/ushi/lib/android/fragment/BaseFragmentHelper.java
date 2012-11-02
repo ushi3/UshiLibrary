@@ -1,17 +1,13 @@
 package com.ushi.lib.android.fragment;
 
-import android.app.Activity;
-
-
 /**
- * コールバックで、必要な処理があったら考えるか…
+ * 通常のFragmentのHelper
  *
  * @author Ushi
  *
  */
-public abstract class BaseFragmentHelper {
-
-	public void onAttach(Activity activity) {
+public class BaseFragmentHelper extends BaseHelper<IChild> {
+	protected BaseFragmentHelper(IChild child) {
+		super(child);
 	}
-
 }

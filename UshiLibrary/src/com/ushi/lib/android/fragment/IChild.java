@@ -1,6 +1,9 @@
 package com.ushi.lib.android.fragment;
 
-public interface IFragmentHelper {
+import android.app.Fragment;
+import android.view.View;
+
+public interface IChild {
 
 	/**
 	 * このインターフェースを実装したFragmentインスタンスのIDを返します。<br>
@@ -16,4 +19,17 @@ public interface IFragmentHelper {
 	 */
 	public String getFragmentTag();
 
+	/**
+	 * このインターフェースを実装したFragmentインスタンスの、トップレベルのViewを返します。<>br
+	 *
+	 * @return {@link Fragment#getView()}
+	 */
+	public View getParentView();
+
+	/**
+	 * {@link ViewHelper} を返します。
+	 *
+	 * @return {@link ViewHelper}
+	 */
+	public ViewHelper getViewHelper();
 }

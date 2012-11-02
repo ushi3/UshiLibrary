@@ -1,20 +1,21 @@
 package com.ushi.lib.android.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.view.LayoutInflater;
 
-public class BaseDialogHelper extends BaseFragmentHelper {
+import com.ushi.lib.android.fragment.BaseDialogHelper.IChildDialog;
+
+public class BaseDialogHelper extends BaseHelper<IChildDialog> {
 
 	private Context mContext;
 	private LayoutInflater mInflater;
 
-	protected BaseDialog mChild;
-
-	public BaseDialogHelper(BaseDialog child) {
-		mChild = child;
+	public BaseDialogHelper(IChildDialog child) {
+		super(child);
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class BaseDialogHelper extends BaseFragmentHelper {
 	 */
 	public void dismiss(Object fragmentManager) {
 		if (fragmentManager != null) {
-			mChild.dismissDialog();
+			getChild().dismissDialog();
 		}
 	}
 
@@ -60,11 +61,16 @@ public class BaseDialogHelper extends BaseFragmentHelper {
 	 *
 	 * @author Ushi
 	 */
-	public static interface BaseDialog extends IFragmentHelper {
+	public static interface IChildDialog extends IChild {
 		/**
 		 * 親クラスの {@link DialogFragment#dismiss()} を呼び出してください。
 		 */
 		public void dismissDialog();
+
+		/**
+		 * ダイアログを返してください。
+		 */
+		public Dialog getChildDialog();
 	}
 
 }

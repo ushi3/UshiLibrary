@@ -15,12 +15,14 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.ushi.lib.android.fragment.SimpleMenuHelper.ISimpleMenu;
+
 /**
  * 標準APIとCompatの処理を共通化するための汎用クラス。
  *
  * @author Ushi
  */
-public class SimpleMenuHelper extends BaseFragmentHelper {
+public class SimpleMenuHelper extends BaseHelper<ISimpleMenu> {
 
 	/**
 	 * {@link SimpleMenuFragment} 及び {@link SimpleMenuFragmentCompat} のリスナーです。
@@ -29,8 +31,8 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 	 * リスナーは {@link Fragment#onAttach()}のタイミングで、{@link Activity} と
 	 * {@link SimpleMenuListener} のinstanceofがtrueの場合に自動的に設定されます。<br>
 	 * 1つのActivityで複数の {@link SimpleMenuFragment} を利用する場合は、引数
-	 * {@link BaseSimpleMenu} の {@link BaseSimpleMenu#getFragmentId()} や
-	 * {@link BaseSimpleMenu#getFragmentTag()} を用いて、<br>
+	 * {@link ISimpleMenu} の {@link ISimpleMenu#getFragmentId()} や
+	 * {@link ISimpleMenu#getFragmentTag()} を用いて、<br>
 	 * 任意のメニューであることを確認することができます。
 	 * <p>
 	 *
@@ -42,25 +44,23 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 		 * メニューが選択されたことの通知です。
 		 *
 		 * @param caller
-		 *            通知を呼び出した {@link BaseSimpleMenu} 実装インスタンス
+		 *            通知を呼び出した {@link ISimpleMenu} 実装インスタンス
 		 * @param position
 		 *            選択されたメニューのindex
 		 * @param name
 		 *            選択されたメニューの名前
 		 */
-		public void onSelected(BaseSimpleMenu caller, int position, String name);
+		public void onSelected(ISimpleMenu caller, int position, String name);
 	}
 
 	private final SelectedColor mSelectedColor = new SelectedColor();
 	private int mLastSelectedPosition = ListView.INVALID_POSITION;
 	private final List<CharSequence> mMenuItems = new ArrayList<CharSequence>();
 
-	private BaseSimpleMenu mChild;
-
 	private SimpleMenuListener mListener;
 
-	public SimpleMenuHelper(BaseSimpleMenu child) {
-		mChild = child;
+	public SimpleMenuHelper(ISimpleMenu child) {
+		super(child);
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 	public void onMenuSelected(ListAdapter adapter, int position) {
 		if (mListener != null) {
 			Object item = adapter.getItem(position);
-			mListener.onSelected(mChild, position,
+			mListener.onSelected(getChild(), position,
 					item != null ? item.toString() : null);
 		}
 		setChildSelected(adapter, position);
@@ -167,7 +167,7 @@ public class SimpleMenuHelper extends BaseFragmentHelper {
 	 *
 	 * @author Ushi
 	 */
-	public static interface BaseSimpleMenu extends IFragmentHelper {
+	public static interface ISimpleMenu extends IChild {
 		/**
 		 * メニューの設定。 (上書き)<br>
 		 * {@link SimpleMenuHelper#setMenuItems(ListAdapter, CharSequence...)}

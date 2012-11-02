@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper.BaseSimpleMenu {
+public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper.ISimpleMenu {
 
 	public SimpleMenuFragment() {
 		setRetainInstance(true);
@@ -64,5 +64,15 @@ public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper
 	@Override
 	public String getFragmentTag() {
 		return getTag();
+	}
+
+	@Override
+	public View getParentView() {
+		return getView();
+	}
+
+	@Override
+	public ViewHelper getViewHelper() {
+		return mHelper.getViewHelper();
 	}
 }
