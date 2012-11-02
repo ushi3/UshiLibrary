@@ -2,6 +2,7 @@ package com.ushi.lib.android.fragment;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -74,5 +75,10 @@ public class SimpleMenuFragment extends ListFragment implements SimpleMenuHelper
 	@Override
 	public ViewHelper getViewHelper() {
 		return mHelper.getViewHelper();
+	}
+
+	@Override
+	public Context getApplicationContext() {
+		return mHelper.getContext();
 	}
 }

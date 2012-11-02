@@ -3,6 +3,7 @@ package com.ushi.lib.android.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.view.View;
 
 import com.ushi.lib.android.fragment.BaseDialogHelper.IChildDialog;
@@ -50,6 +51,11 @@ public class BaseDialogFragment extends DialogFragment implements IChildDialog {
 	@Override
 	public ViewHelper getViewHelper() {
 		return mHelper.getViewHelper();
+	}
+
+	@Override
+	public Context getApplicationContext() {
+		return mHelper.getContext();
 	}
 
 	@Override

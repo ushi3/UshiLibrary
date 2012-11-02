@@ -1,6 +1,7 @@
 package com.ushi.lib.android.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -37,5 +38,10 @@ public class BaseFragmentCompat extends Fragment implements IChild {
 	@Override
 	public ViewHelper getViewHelper() {
 		return mHelper.getViewHelper();
+	}
+
+	@Override
+	public Context getApplicationContext() {
+		return mHelper.getContext();
 	}
 }

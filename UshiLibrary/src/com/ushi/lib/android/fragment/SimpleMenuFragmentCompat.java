@@ -1,6 +1,7 @@
 package com.ushi.lib.android.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -82,5 +83,10 @@ public class SimpleMenuFragmentCompat extends ListFragment implements SimpleMenu
 	@Override
 	public ViewHelper getViewHelper() {
 		return mHelper.getViewHelper();
+	}
+
+	@Override
+	public Context getApplicationContext() {
+		return mHelper.getContext();
 	}
 }

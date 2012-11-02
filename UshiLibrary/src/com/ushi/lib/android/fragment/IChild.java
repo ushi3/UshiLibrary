@@ -1,6 +1,7 @@
 package com.ushi.lib.android.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.view.View;
 
 public interface IChild {
@@ -32,4 +33,11 @@ public interface IChild {
 	 * @return {@link ViewHelper}
 	 */
 	public ViewHelper getViewHelper();
+
+	/**
+	 * Applicationの {@link Context} を返します。
+	 *
+	 * @return {@link Context}
+	 */
+	public Context getApplicationContext();
 }
