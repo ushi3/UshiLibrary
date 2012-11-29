@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 /**
  * リスト形式での簡易的なメニュー表示のFragmentのコンパチバージョンです。<br>
- * ActivityでMenuCallbackかMenuCallbackPickerを実装してください。Pickerが優先的に使用されます。
  *
  * @author Ushi
  */
