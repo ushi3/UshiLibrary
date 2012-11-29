@@ -16,6 +16,15 @@ public abstract class BaseActivity extends Activity {
 
 		initActionBar();
 	}
+	
+	@Override
+	public void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		
+		if (isShowSoftMenuKey()) {
+			getWindow().addFlags(0x08000000);
+		}
+	}
 
 	protected void initActionBar() {
 		if (Util.isMoreThanHoneycomb()) {
@@ -60,6 +69,15 @@ public abstract class BaseActivity extends Activity {
 	 * @return 導入画面であればtrue。デフォルトはfalse
 	 */
 	protected boolean isEntrance() {
+		return false;
+	}
+
+	/**
+	 * ソフトキーのMenuを強制表示するフラグを設定するかを返します。
+	 * 
+	 * @return Menuを強制表示する場合true
+	 */
+	protected boolean isShowSoftMenuKey() {
 		return false;
 	}
 	
