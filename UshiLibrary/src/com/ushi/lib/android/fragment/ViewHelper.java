@@ -43,7 +43,7 @@ public class ViewHelper {
 	 * @param text
 	 *            テキスト
 	 */
-	protected void setTextToView(View view, int resId, CharSequence text) {
+	public void setTextToView(View view, int resId, CharSequence text) {
 		if (view == null) {
 			view = getView();
 		}
@@ -57,7 +57,7 @@ public class ViewHelper {
 		textView.setText(text);
 	}
 
-	protected void setTextToView(int resId, CharSequence text) {
+	public void setTextToView(int resId, CharSequence text) {
 		setTextToView(null, resId, text);
 	}
 
@@ -70,7 +70,7 @@ public class ViewHelper {
 	 *            リソースID
 	 * @return 設定されているテキスト
 	 */
-	protected String getTextByView(View view, int resId) {
+	public String getTextByView(View view, int resId) {
 		if (view == null) {
 			view = getView();
 		}
@@ -83,7 +83,7 @@ public class ViewHelper {
 		return textView.getText().toString();
 	}
 
-	protected String getTextByView(int resId) {
+	public String getTextByView(int resId) {
 		return getTextByView(null, resId);
 	}
 
@@ -97,7 +97,7 @@ public class ViewHelper {
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	protected void setOnClickListener(View view, int resId, OnClickListener listener) {
+	public void setOnClickListener(View view, int resId, OnClickListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -109,7 +109,7 @@ public class ViewHelper {
 		view.findViewById(resId).setOnClickListener(listener);
 	}
 
-	protected void setOnClickListener(int resId, OnClickListener listener) {
+	public void setOnClickListener(int resId, OnClickListener listener) {
 		setOnClickListener(null, resId, listener);
 	}
 
@@ -123,7 +123,7 @@ public class ViewHelper {
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	protected void setOnLongClickListener(View view, int resId, OnLongClickListener listener) {
+	public void setOnLongClickListener(View view, int resId, OnLongClickListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -135,7 +135,7 @@ public class ViewHelper {
 		view.findViewById(resId).setOnLongClickListener(listener);
 	}
 
-	protected void setOnLongClickListener(int resId, OnLongClickListener listener) {
+	public void setOnLongClickListener(int resId, OnLongClickListener listener) {
 		setOnLongClickListener(null, resId, listener);
 	}
 
@@ -149,7 +149,7 @@ public class ViewHelper {
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	protected void setOnTouchListener(View view, int resId, OnTouchListener listener) {
+	public void setOnTouchListener(View view, int resId, OnTouchListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -161,7 +161,7 @@ public class ViewHelper {
 		view.findViewById(resId).setOnTouchListener(listener);
 	}
 
-	protected void setOnTouchListener(int resId, OnTouchListener listener) {
+	public void setOnTouchListener(int resId, OnTouchListener listener) {
 		setOnTouchListener(null, resId, listener);
 	}
 
@@ -175,7 +175,7 @@ public class ViewHelper {
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	protected void setOnSeekBarChangeListener(View view, int resId, OnSeekBarChangeListener listener) {
+	public void setOnSeekBarChangeListener(View view, int resId, OnSeekBarChangeListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -187,7 +187,7 @@ public class ViewHelper {
 		((SeekBar) view.findViewById(resId)).setOnSeekBarChangeListener(listener);
 	}
 
-	protected void setOnSeekBarChangeListener(int resId, OnSeekBarChangeListener listener) {
+	public void setOnSeekBarChangeListener(int resId, OnSeekBarChangeListener listener) {
 		setOnSeekBarChangeListener(null, resId, listener);
 	}
 
@@ -201,7 +201,7 @@ public class ViewHelper {
 	 * @param add
 	 *            増分値 (0～SeekBarのMaxに丸められます。)
 	 */
-	protected void addSeek(View view, int resId, int add) {
+	public void addSeek(View view, int resId, int add) {
 		if (view == null) {
 			view = getView();
 		}
@@ -223,7 +223,7 @@ public class ViewHelper {
 	 *            リソースID
 	 * @return シークバーのプログレス
 	 */
-	protected int getSeekProgress(View view, int resId) {
+	public int getSeekProgress(View view, int resId) {
 		if (view == null) {
 			view = getView();
 		}
@@ -236,7 +236,7 @@ public class ViewHelper {
 		return seekBar.getProgress();
 	}
 
-	protected int getSeekProgress(int resId) {
+	public int getSeekProgress(int resId) {
 		return getSeekProgress(null, resId);
 	}
 
@@ -249,7 +249,7 @@ public class ViewHelper {
 	 *            リソースID
 	 * @return 選択されている AdapterのgetItem()の返却値
 	 */
-	protected Object getSelectedItem(View view, int resId) {
+	public Object getSelectedItem(View view, int resId) {
 		if (view == null) {
 			view = getView();
 		}
@@ -262,7 +262,7 @@ public class ViewHelper {
 		return adapterView.getSelectedItem();
 	}
 
-	protected Object getSelectedItem(int resId) {
+	public Object getSelectedItem(int resId) {
 		return getSelectedItem(null, resId);
 	}
 
