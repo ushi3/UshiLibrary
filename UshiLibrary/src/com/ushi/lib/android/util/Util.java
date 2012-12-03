@@ -2,7 +2,9 @@ package com.ushi.lib.android.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Looper;
+import android.text.TextUtils;
 
 /**
  * ユーティリティクラス。
@@ -77,6 +79,33 @@ public class Util {
 				"this application should have " + permission + " permission. ");
 			}
 		}
+	}
+
+	/**
+	 * SDカードがマウントされているかを判定します。
+	 *
+	 * @return SDがマウント済みならtrue、そうでなければfalse
+	 */
+	public static boolean isMountedSdCard() {
+		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+	}
+
+	/**
+	 * SDカード内の特定のファイルパスを返します。<p>
+	 * 引数がnullの場合、SDカードのルートパスを返します。
+	 * 空文字の場合、SDカードのルートパスに"/"をつけて返します。
+	 *
+	 * @param filePath SDカードルート以下のまたはファイルパス
+	 * @return
+	 */
+	public static String getFilePathInSdCard(String filePath) {
+		StringBuilder sb = new StringBuilder(Environment.getExternalStorageDirectory().getPath());
+
+		if (filePath != null) {
+			sb.append(filePath.startsWith("/") ? "" : "/").append(filePath);
+		}
+
+		return sb.toString();
 	}
 
 }
