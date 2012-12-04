@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.slidingmenu.lib.SlidingMenu;
@@ -45,6 +47,25 @@ public abstract class BaseSlidingActivity extends SlidingActivity {
 		}
 
 		return super.dispatchKeyEvent(event);
+	}
+	
+	/**
+	 * メニューにSlidingMenu開閉のメニューアイテムを追加するかどうか。
+	 * デフォルトは、ActionBarが使える上で、メニューキー非表示であるか、メニューのトグルをOFFにしている場合true。
+	 */
+	protected boolean hasToggleMenu() {
+		return Util.enabledNativeActionBar() && (!isShowSoftMenuKey() || !isToggleSlidingMenuOnMenuKey);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean b = hasToggleMenu() && Util.enabledNativeActionBar();
+		if (b) {
+			MenuInflater inf = getMenuInflater();
+			inf.inflate(R.menu.default_toggle_menu, menu);
+		}
+		
+		return b;
 	}
 
 	/**
@@ -90,16 +111,16 @@ public abstract class BaseSlidingActivity extends SlidingActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-
-		case android.R.id.home:
+		final int id = item.getItemId();
+		if (id == android.R.id.home) {
 			if (onActionHome()) {
 				finish();
 			}
 			return true;
-
-		default:
-			break;
+		}
+		if (id == R.id.menu_toggle) {
+			toggle();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);

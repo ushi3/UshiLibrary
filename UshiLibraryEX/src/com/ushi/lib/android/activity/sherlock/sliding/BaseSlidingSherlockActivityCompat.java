@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.actionbarsherlock.view.MenuInflater;
 import com.slidingmenu.lib.SlidingMenu;
 import com.ushi.lib.android.util.Util;
 import com.ushi.lib.ex.R;
@@ -42,6 +43,25 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 		}
 
 		return super.dispatchKeyEvent(event);
+	}
+	
+	/**
+	 * メニューにSlidingMenu開閉のメニューアイテムを追加するかどうか。
+	 * デフォルトは、メニューキー非表示であるか、メニューのトグルをOFFにしている場合true。
+	 */
+	protected boolean hasToggleMenu() {
+		return !isShowSoftMenuKey() || !isToggleSlidingMenuOnMenuKey;
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		boolean b = hasToggleMenu();
+		if (b) {
+			MenuInflater inf = getSupportMenuInflater();
+			inf.inflate(R.menu.default_toggle_menu, menu);
+		}
+		
+		return b;
 	}
 
 	/**
@@ -87,16 +107,16 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 	@Override
 	public boolean onOptionsItemSelected(
 			com.actionbarsherlock.view.MenuItem item) {
-		switch (item.getItemId()) {
-
-		case android.R.id.home:
+		final int id = item.getItemId();
+		if (id == android.R.id.home) {
 			if (onActionHome()) {
 				finish();
 			}
 			return true;
-
-		default:
-			break;
+		}
+		if (id == R.id.menu_toggle) {
+			toggle();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
