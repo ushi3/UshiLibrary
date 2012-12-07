@@ -34,6 +34,62 @@ public class ViewHelper {
 	}
 
 	/**
+	 * 指定したIDのViewを返します。
+	 *
+	 * @param id ViewのID
+	 * @return Viewまたはnull
+	 */
+	public View findViewById(int id) {
+		View view = getView();
+		if (view == null) {
+			return null;
+		}
+
+		return view.findViewById(id);
+	}
+
+	/**
+	 * 指定したIDの入れ子式にViewを検索して返します。<p>
+	 *
+	 * もし、findViewById(R.id.parent, R.id.child)と呼び出した場合、
+	 * 返却されるViewは、R.id.parentのIDを持つViewの中にある、R.id.childのIDを持つViewとなります。
+	 *
+	 * @param ids 入れ子式のID、一番最後のIDのViewが返る。
+	 * @return
+	 */
+	public View findViewById(int... ids) {
+		if (ids == null) {
+			return null;
+		}
+
+		View view = getView();
+		if (view == null) {
+			return null;
+		}
+
+		for (int id : ids) {
+			view = view.findViewById(id);
+		}
+
+		return view;
+	}
+
+	/**
+	 * 指定したタグのViewを返します。
+	 *
+	 * @param tag タグ
+	 * @return Viewまたはnull
+	 */
+	public View findViewWithTag(Object tag) {
+		View view = getView();
+		if (view == null) {
+			return null;
+		}
+
+		return view.findViewWithTag(tag);
+	}
+
+	/**
 	 * 指定したViewのテキストを設定します。
 	 *
 	 * @param view
