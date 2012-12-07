@@ -36,7 +36,8 @@ public class ViewHelper {
 	/**
 	 * 指定したIDのViewを返します。
 	 *
-	 * @param id ViewのID
+	 * @param id
+	 *            ViewのID
 	 * @return Viewまたはnull
 	 */
 	public View findViewById(int id) {
@@ -49,12 +50,14 @@ public class ViewHelper {
 	}
 
 	/**
-	 * 指定したIDの入れ子式にViewを検索して返します。<p>
+	 * 指定したIDの入れ子式にViewを検索して返します。
+	 * <p>
 	 *
 	 * もし、findViewById(R.id.parent, R.id.child)と呼び出した場合、
 	 * 返却されるViewは、R.id.parentのIDを持つViewの中にある、R.id.childのIDを持つViewとなります。
 	 *
-	 * @param ids 入れ子式のID、一番最後のIDのViewが返る。
+	 * @param ids
+	 *            入れ子式のID、一番最後のIDのViewが返る。
 	 * @return
 	 */
 	public View findViewById(int... ids) {
@@ -77,7 +80,8 @@ public class ViewHelper {
 	/**
 	 * 指定したタグのViewを返します。
 	 *
-	 * @param tag タグ
+	 * @param tag
+	 *            タグ
 	 * @return Viewまたはnull
 	 */
 	public View findViewWithTag(Object tag) {
@@ -94,12 +98,12 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @param text
 	 *            テキスト
 	 */
-	public void setTextToView(View view, int resId, CharSequence text) {
+	public void setTextToView(View view, int id, CharSequence text) {
 		if (view == null) {
 			view = getView();
 		}
@@ -109,12 +113,66 @@ public class ViewHelper {
 			return;
 		}
 
-		TextView textView = (TextView) view.findViewById(resId);
-		textView.setText(text);
+		View v = view.findViewById(id);
+
+		if (v instanceof TextView == false) {
+			Log.w("target view is not TextView");
+			return;
+		}
+		((TextView) v).setText(text);
 	}
 
-	public void setTextToView(int resId, CharSequence text) {
-		setTextToView(null, resId, text);
+	/**
+	 * 指定したViewのテキストを設定します。
+	 *
+	 * @param id
+	 *            ViewのID
+	 * @param text
+	 *            テキスト
+	 */
+	public void setTextToView(int id, CharSequence text) {
+		setTextToView(null, id, text);
+	}
+
+	/**
+	 * 指定したViewのテキストを設定します。
+	 *
+	 * @param view
+	 *            検索対象のView
+	 * @param id
+	 *            ViewのID
+	 * @param resId
+	 *            リソースID
+	 */
+	public void setTextToView(View view, int id, int resId) {
+		if (view == null) {
+			view = getView();
+		}
+
+		if (view == null) {
+			Log.w("view is null.");
+			return;
+		}
+
+		View v = view.findViewById(id);
+
+		if (v instanceof TextView == false) {
+			Log.w("target view is not TextView");
+			return;
+		}
+		((TextView) v).setText(resId);
+	}
+
+	/**
+	 * 指定したViewのテキストを設定します。
+	 *
+	 * @param id
+	 *            ViewのID
+	 * @param resId
+	 *            リソースID
+	 */
+	public void setTextToView(int id, int resId) {
+		setTextToView(null, id, resId);
 	}
 
 	/**
@@ -122,11 +180,11 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
-	 * @return 設定されているテキスト
+	 * @param id
+	 *            ViewのID
+	 * @return 設定されているテキスト、またはnull
 	 */
-	public String getTextByView(View view, int resId) {
+	public String getTextByView(View view, int id) {
 		if (view == null) {
 			view = getView();
 		}
@@ -135,12 +193,24 @@ public class ViewHelper {
 			return null;
 		}
 
-		TextView textView = (TextView) view.findViewById(resId);
-		return textView.getText().toString();
+		View v = view.findViewById(id);
+
+		if (v instanceof TextView == false) {
+			Log.w("target view is not TextView");
+			return null;
+		}
+		return ((TextView) v).getText().toString();
 	}
 
-	public String getTextByView(int resId) {
-		return getTextByView(null, resId);
+	/**
+	 * 指定したViewに設定されているテキストを取得します。
+	 *
+	 * @param id
+	 *            ViewのID
+	 * @return 設定されているテキスト、またはnull
+	 */
+	public String getTextByView(int id) {
+		return getTextByView(null, id);
 	}
 
 	/**
@@ -148,12 +218,12 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	public void setOnClickListener(View view, int resId, OnClickListener listener) {
+	public void setOnClickListener(View view, int id, OnClickListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -162,11 +232,19 @@ public class ViewHelper {
 			return;
 		}
 
-		view.findViewById(resId).setOnClickListener(listener);
+		view.findViewById(id).setOnClickListener(listener);
 	}
 
-	public void setOnClickListener(int resId, OnClickListener listener) {
-		setOnClickListener(null, resId, listener);
+	/**
+	 * 指定したViewにクリックリスナーをセットします。
+	 *
+	 * @param id
+	 *            ViewのID
+	 * @param listener
+	 *            セットするリスナー
+	 */
+	public void setOnClickListener(int id, OnClickListener listener) {
+		setOnClickListener(null, id, listener);
 	}
 
 	/**
@@ -174,12 +252,13 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	public void setOnLongClickListener(View view, int resId, OnLongClickListener listener) {
+	public void setOnLongClickListener(View view, int id,
+			OnLongClickListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -188,11 +267,19 @@ public class ViewHelper {
 			return;
 		}
 
-		view.findViewById(resId).setOnLongClickListener(listener);
+		view.findViewById(id).setOnLongClickListener(listener);
 	}
 
-	public void setOnLongClickListener(int resId, OnLongClickListener listener) {
-		setOnLongClickListener(null, resId, listener);
+	/**
+	 * 指定したViewにロングクリックリスナーをセットします。
+	 *
+	 * @param id
+	 *            ViewのID
+	 * @param listener
+	 *            セットするリスナー
+	 */
+	public void setOnLongClickListener(int id, OnLongClickListener listener) {
+		setOnLongClickListener(null, id, listener);
 	}
 
 	/**
@@ -200,12 +287,12 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	public void setOnTouchListener(View view, int resId, OnTouchListener listener) {
+	public void setOnTouchListener(View view, int id, OnTouchListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -214,24 +301,33 @@ public class ViewHelper {
 			return;
 		}
 
-		view.findViewById(resId).setOnTouchListener(listener);
-	}
-
-	public void setOnTouchListener(int resId, OnTouchListener listener) {
-		setOnTouchListener(null, resId, listener);
+		view.findViewById(id).setOnTouchListener(listener);
 	}
 
 	/**
-	 * 指定したViewにシークチェンジリスナーをセットします。
+	 * 指定したViewにタッチリスナーをセットします。
 	 *
-	 * @param view
-	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @param listener
 	 *            セットするリスナー
 	 */
-	public void setOnSeekBarChangeListener(View view, int resId, OnSeekBarChangeListener listener) {
+	public void setOnTouchListener(int id, OnTouchListener listener) {
+		setOnTouchListener(null, id, listener);
+	}
+
+	/**
+	 * 指定したSeekBarにシークチェンジリスナーをセットします。
+	 *
+	 * @param view
+	 *            検索対象のView
+	 * @param id
+	 *            ViewのID
+	 * @param listener
+	 *            セットするリスナー
+	 */
+	public void setOnSeekBarChangeListener(View view, int id,
+			OnSeekBarChangeListener listener) {
 		if (view == null) {
 			view = getView();
 		}
@@ -240,11 +336,27 @@ public class ViewHelper {
 			return;
 		}
 
-		((SeekBar) view.findViewById(resId)).setOnSeekBarChangeListener(listener);
+		View v = view.findViewById(id);
+
+		if (v instanceof SeekBar == false) {
+			Log.w("target is not SeekBar");
+			return;
+		}
+
+		((SeekBar) v).setOnSeekBarChangeListener(listener);
 	}
 
-	public void setOnSeekBarChangeListener(int resId, OnSeekBarChangeListener listener) {
-		setOnSeekBarChangeListener(null, resId, listener);
+	/**
+	 * 指定したSeekBarにシークチェンジリスナーをセットします。
+	 *
+	 * @param id
+	 *            ViewのID
+	 * @param listener
+	 *            セットするリスナー
+	 */
+	public void setOnSeekBarChangeListener(int id,
+			OnSeekBarChangeListener listener) {
+		setOnSeekBarChangeListener(null, id, listener);
 	}
 
 	/**
@@ -252,12 +364,12 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @param add
 	 *            増分値 (0～SeekBarのMaxに丸められます。)
 	 */
-	public void addSeek(View view, int resId, int add) {
+	public void addSeek(View view, int id, int add) {
 		if (view == null) {
 			view = getView();
 		}
@@ -266,8 +378,16 @@ public class ViewHelper {
 			return;
 		}
 
-		SeekBar seekBar = (SeekBar) view.findViewById(resId);
-		seekBar.setProgress(Math.min(seekBar.getMax(), Math.max(0, seekBar.getProgress() + add)));
+		View v = view.findViewById(id);
+
+		if (v instanceof SeekBar == false) {
+			Log.w("target is not SeekBar");
+			return;
+		}
+
+		SeekBar seekBar = (SeekBar) v;
+		seekBar.setProgress(Math.min(seekBar.getMax(),
+				Math.max(0, seekBar.getProgress() + add)));
 	}
 
 	/**
@@ -275,11 +395,11 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @return シークバーのプログレス
 	 */
-	public int getSeekProgress(View view, int resId) {
+	public int getSeekProgress(View view, int id) {
 		if (view == null) {
 			view = getView();
 		}
@@ -288,7 +408,14 @@ public class ViewHelper {
 			return 0;
 		}
 
-		SeekBar seekBar = (SeekBar) view.findViewById(resId);
+		View v = view.findViewById(id);
+
+		if (v instanceof SeekBar == false) {
+			Log.w("target is not SeekBar");
+			return 0;
+		}
+
+		SeekBar seekBar = (SeekBar) v;
 		return seekBar.getProgress();
 	}
 
@@ -301,11 +428,11 @@ public class ViewHelper {
 	 *
 	 * @param view
 	 *            検索対象のView
-	 * @param resId
-	 *            リソースID
+	 * @param id
+	 *            ViewのID
 	 * @return 選択されている AdapterのgetItem()の返却値
 	 */
-	public Object getSelectedItem(View view, int resId) {
+	public Object getSelectedItem(View view, int id) {
 		if (view == null) {
 			view = getView();
 		}
@@ -314,7 +441,14 @@ public class ViewHelper {
 			return null;
 		}
 
-		AdapterView<?> adapterView = (AdapterView<?>) view.findViewById(resId);
+		View v = view.findViewById(id);
+
+		if (v instanceof AdapterView<?> == false) {
+			Log.w("target is not AdapterView");
+			return null;
+		}
+
+		AdapterView<?> adapterView = (AdapterView<?>) v;
 		return adapterView.getSelectedItem();
 	}
 
