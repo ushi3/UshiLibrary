@@ -45,7 +45,7 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 
 	/**
 	 * ActionBarのサブタイトルを設定します。
-	 * 
+	 *
 	 * @param subtitle サブタイトル
 	 */
 	public void setSubtitle(CharSequence subtitle) {
@@ -54,10 +54,10 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 			actionBar.setSubtitle(subtitle);
 		}
 	}
-	
+
 	/**
 	 * 現在のActionBarに設定されているサブタイトルを返します。
-	 * 
+	 *
 	 * @return サブタイトル
 	 */
 	public String getSubtitle() {
@@ -65,7 +65,7 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 		if (actionBar == null) {
 			return null;
 		}
-		
+
 		CharSequence subtitle = actionBar.getSubtitle();
 		return subtitle != null ? subtitle.toString() : null;
 	}
@@ -119,7 +119,7 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 
 	/**
 	 * android.R.homeが通知されたときの処理。
-	 * 
+	 *
 	 * @return trueを返すとActivityを閉じます。
 	 */
 	protected boolean onActionHome() {
@@ -135,7 +135,7 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 			}
 			return true;
 		}
-		if (id == R.id.menu_toggle) {
+		if (id == R.id.ex_menu_toggle) {
 			toggle();
 			return true;
 		}
@@ -145,7 +145,7 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 
 	/**
 	 * アプリの導入画面であるかを返します。 falseの場合、ActionBarのアイコンに「<」が付加されます。
-	 * 
+	 *
 	 * @return 導入画面であればtrue。デフォルトはfalse
 	 */
 	protected boolean isEntrance() {
@@ -154,7 +154,7 @@ public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockF
 
 	/**
 	 * ソフトキーのMenuを強制表示するフラグを設定するかを返します。
-	 * 
+	 *
 	 * @return Menuを強制表示する場合true
 	 */
 	protected boolean isShowSoftMenuKey() {

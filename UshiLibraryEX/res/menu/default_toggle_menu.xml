@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/menu_toggle"
+        android:id="@+id/ex_menu_toggle"
         android:icon="@drawable/ic_menu_nav_left"
         android:title="@string/menu_toggle_name"
         android:showAsAction="always"

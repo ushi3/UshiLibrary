@@ -48,7 +48,7 @@ public abstract class BaseSlidingActivityCompat extends SlidingFragmentActivity 
 
 		return super.dispatchKeyEvent(event);
 	}
-	
+
 	/**
 	 * メニューにSlidingMenu開閉のメニューアイテムを追加するかどうか。
 	 * デフォルトは、ActionBarが使える上で、メニューキー非表示であるか、メニューのトグルをOFFにしている場合true。
@@ -56,7 +56,7 @@ public abstract class BaseSlidingActivityCompat extends SlidingFragmentActivity 
 	protected boolean hasToggleMenu() {
 		return Util.enabledNativeActionBar() && (!isShowSoftMenuKey() || !isToggleSlidingMenuOnMenuKey);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean b = hasToggleMenu() && Util.enabledNativeActionBar();
@@ -64,7 +64,7 @@ public abstract class BaseSlidingActivityCompat extends SlidingFragmentActivity 
 			MenuInflater inf = getMenuInflater();
 			inf.inflate(R.menu.default_toggle_menu, menu);
 		}
-		
+
 		return b;
 	}
 
@@ -118,7 +118,7 @@ public abstract class BaseSlidingActivityCompat extends SlidingFragmentActivity 
 			}
 			return true;
 		}
-		if (id == R.id.menu_toggle) {
+		if (id == R.id.ex_menu_toggle) {
 			toggle();
 			return true;
 		}
