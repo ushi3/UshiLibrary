@@ -6,8 +6,8 @@ package com.ushi.lib.util;
  * @author Ushi
  */
 public class Fraction<N extends Number> {
-	protected final N mMolecule;
-	protected final N mDenominator;
+	protected N mMolecule;
+	protected N mDenominator;
 
 	/**
 	 * @param molecule
@@ -20,6 +20,42 @@ public class Fraction<N extends Number> {
 			throw new IllegalArgumentException("args must be not null");
 		}
 		this.mMolecule = molecule;
+		this.mDenominator = denominator;
+	}
+
+	/**
+	 * @param molecule
+	 *            分子
+	 * @param denominator
+	 *            分母
+	 */
+	public void set(N molecule, N denominator) {
+		if (molecule == null || denominator == null) {
+			throw new IllegalArgumentException("args must be not null");
+		}
+		this.mMolecule = molecule;
+		this.mDenominator = denominator;
+	}
+
+	/**
+	 * @param molecule
+	 *            分子
+	 */
+	public void setMolecule(N molecule) {
+		if (molecule == null) {
+			throw new IllegalArgumentException("args must be not null");
+		}
+		this.mMolecule = molecule;
+	}
+
+	/**
+	 * @param denominator
+	 *            分母
+	 */
+	public void setDenominator(N denominator) {
+		if (denominator == null) {
+			throw new IllegalArgumentException("args must be not null");
+		}
 		this.mDenominator = denominator;
 	}
 
@@ -51,7 +87,8 @@ public class Fraction<N extends Number> {
 	}
 
 	/**
-	 * このインスタンスの表す値の余事象となる値をfloatで返します。
+	 * このインスタンスの表す値の余事象となる値をfloatで返します。<br>
+	 * 分子 ＞ 分母の場合、このメソッドの結果は保証されません。
 	 *
 	 * @return (分母 - 分子)/分母
 	 */
@@ -116,6 +153,7 @@ public class Fraction<N extends Number> {
 
 	@Override
 	public String toString() {
-		return getMolecule() + "/" + getDenominator() + " : " + getFractionValue();
+		return getMolecule() + "/" + getDenominator() + " : "
+				+ getFractionValue();
 	}
 }
