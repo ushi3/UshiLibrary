@@ -9,7 +9,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void i(String msg) {
-		android.util.Log.i(StackUtil.getClassName(1), msg);
+		android.util.Log.i(StackUtil.getClassName(1), createMessage(msg));
 	}
 
 	/**
@@ -20,7 +20,7 @@ public class Log {
 	 */
 	public static void i(Object ob) {
 		android.util.Log.i(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null);
+				createMessage(ob));
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void d(String msg) {
-		android.util.Log.d(StackUtil.getClassName(1), msg);
+		android.util.Log.d(StackUtil.getClassName(1), createMessage(msg));
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class Log {
 	 */
 	public static void d(Object ob) {
 		android.util.Log.d(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null);
+				createMessage(ob));
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void wtf(String msg) {
-		android.util.Log.wtf(StackUtil.getClassName(1), msg);
+		android.util.Log.wtf(StackUtil.getClassName(1), createMessage(msg));
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Log {
 	 */
 	public static void wtf(Object ob) {
 		android.util.Log.wtf(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null);
+				createMessage(ob));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Log {
 	 *            発生した例外
 	 */
 	public static void w(String msg, Throwable th) {
-		android.util.Log.w(StackUtil.getClassName(1), msg, th);
+		android.util.Log.w(StackUtil.getClassName(1), createMessage(msg), th);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class Log {
 	 */
 	public static void w(Object ob, Throwable th) {
 		android.util.Log.w(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null, th);
+				createMessage(ob), th);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void w(String msg) {
-		android.util.Log.w(StackUtil.getClassName(1), msg);
+		android.util.Log.w(StackUtil.getClassName(1), createMessage(msg));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class Log {
 	 */
 	public static void w(Object ob) {
 		android.util.Log.w(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null);
+				createMessage(ob));
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class Log {
 	 *            出力するメッセージ
 	 */
 	public static void e(String msg) {
-		android.util.Log.e(StackUtil.getClassName(1), msg);
+		android.util.Log.e(StackUtil.getClassName(1), createMessage(msg));
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class Log {
 	 */
 	public static void e(Object ob) {
 		android.util.Log.e(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null);
+				createMessage(ob));
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class Log {
 	 *            発生した例外
 	 */
 	public static void e(String msg, Throwable th) {
-		android.util.Log.e(StackUtil.getClassName(1), msg, th);
+		android.util.Log.e(StackUtil.getClassName(1), createMessage(msg), th);
 	}
 
 	/**
@@ -182,6 +182,10 @@ public class Log {
 	 */
 	public static void e(Object ob, Throwable th) {
 		android.util.Log.e(StackUtil.getClassName(1),
-				ob != null ? ob.toString() : null, th);
+				createMessage(ob), th);
+	}
+
+	static String createMessage(Object ob) {
+		return new StringBuilder().append(ob != null ? ob.toString() : null).toString();
 	}
 }
