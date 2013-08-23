@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuInflater;
-import com.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ushi.lib.ex.R;
 
 public abstract class BaseSlidingSherlockActivityCompat extends SlidingSherlockFragmentActivity {

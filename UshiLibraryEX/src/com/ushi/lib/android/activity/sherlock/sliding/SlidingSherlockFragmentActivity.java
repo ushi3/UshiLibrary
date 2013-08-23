@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingActivityBase;
-import com.slidingmenu.lib.app.SlidingActivityHelper;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityBase;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityHelper;
 
 public class SlidingSherlockFragmentActivity extends SherlockFragmentActivity implements SlidingActivityBase {
 
@@ -72,11 +72,11 @@ public class SlidingSherlockFragmentActivity extends SherlockFragmentActivity im
 	}
 
 	public void showAbove() {
-		mHelper.showAbove();
+		mHelper.showContent();
 	}
 
 	public void showBehind() {
-		mHelper.showBehind();
+		mHelper.showMenu();
 	}
 
 	public void setSlidingActionBarEnabled(boolean b) {
@@ -88,6 +88,24 @@ public class SlidingSherlockFragmentActivity extends SherlockFragmentActivity im
 		boolean b = mHelper.onKeyUp(keyCode, event);
 		if (b) return b;
 		return super.onKeyUp(keyCode, event);
+	}
+
+	@Override
+	public void showContent() {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void showMenu() {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void showSecondaryMenu() {
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 }
